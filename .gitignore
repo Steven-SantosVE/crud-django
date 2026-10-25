@@ -1,2 +1,3 @@
 .my_pgpass
 .pg_service.conf
+backend/crud/.env
