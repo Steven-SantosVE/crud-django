@@ -5,7 +5,7 @@ const liStyle = "text-white bg-gray-700 p-4 pl-6 pr-6 h-fit rounded-4xl transiti
 
 export default function Navbar() {
     return (
-        <div className="flex fixed content-center w-screen h-[10vh] justify-center text-center bg-gray-800">
+        <div className="flex fixed content-center w-screen h-[15vh] justify-center text-center bg-gray-800">
             <ul className="flex gap-4 font-bold text-2xl m-[2.5vh]">
                 <Link to="/" className={liStyle} onClick={null}>Back</Link>
                 <p className="text-white p-4 pl-6 pr-6 h-fit rounded-3xl">Welcome to the BOOKS dashboard!</p>

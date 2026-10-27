@@ -1,39 +1,49 @@
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import React from 'react'
 import Navbar from "../components/Navbar"
+import Add from "../components/Add"
 import axios from "axios";
+
+
 
 const liStyle = "ml-2 mr-2 text-white bg-gray-700 p-4 pl-6 pr-6 h-fit rounded-4xl transition-all delay-75 duration-150 ease-in-out hover:text-2xl hover:cursor-pointer hover:bg-red-300 hover:p-6 hover:pl-8 hover:pr-8"; 
 const thStyle = "p-3 border-2 bg-gray-700"
 
 export default function Home() {  
     const [authors, setAuthors] = useState()
+    const [isAddVisible, setIsAddVisible] = useState(false)
 
-    useEffect(() =>{
+    function loadData(){
         axios
         .get("http://127.0.0.1:8000/author")
         .then((response) =>{
             setAuthors(response.data)
+            console.log(response.data)
         })
         .catch((error) => {
             console.error("Error fetching tasks:", error);
         });
+    }
+
+    useEffect(() =>{
+        loadData()
     }, [])
     
     return (
         <div>
             <Navbar/>
+            <Add onClose={()=> setIsAddVisible(false)} isVisible={isAddVisible}/>
             <div id="crud-container" className="grid gap-3.5 justify-center">
                 <div className="mt-[20vh] ">
                     <ul className="flex justify-center">
-                        <li className={liStyle} onClick={null}>Create</li>
+                        <li className={liStyle} onClick={()=> setIsAddVisible(true)}>Create</li>
                         <li className={liStyle} onClick={null}>Update</li>
-                        <li className={liStyle} onClick={null}>Refresh</li>
+                        <li className={liStyle} onClick={()=> loadData()}>Refresh</li>
                         <li className={liStyle} onClick={null}>Delete</li>
                     </ul>
                 </div>
-                <div className="grid text-white bg-gray-600 h-[50vh] w-[70vw] rounded-4xl place-content-center">
-                    <h1 className="text-6xl mb-6">My Books</h1>
+                <div className="grid text-white h-[50vh] w-fit p-10 place-content-center  overflow-y-scroll">
+                    <h1 className="text-6xl mb-6 mt-100">My Books</h1>
                     <table className="w-[69vh] rounded-4xl text-left">
                         <thead>
                             <tr>
@@ -56,6 +66,7 @@ export default function Home() {
                     </table>
                 </div>
             </div>
+            <Add/>
         </div>
     )
 }
