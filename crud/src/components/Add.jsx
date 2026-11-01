@@ -49,7 +49,7 @@ export default function Add({isVisible, onClose}){
 
                     <input onClick={()=> submitAuthor()} type='submit' className={inputTextStyle + 
                         " bg-purple-800 text-white font-bold text-3xl \
-                        mt-11 h-[90px] rounded-[50rem] transition-all delay-75 \
+                        mt-11 h-[90px] rounded-[50rem] transition-transform delay-75 \
                         duration-150 ease-in-out hover:cursor-pointer\
                         hover:bg-purple-600"}
                     />       
