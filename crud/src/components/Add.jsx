@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react";
-import axios from "axios";
+
+//REST API
+import {submitAuthor} from "../api/apiAuthorRequests.js"
 
 const modalStyle = "flex-col h-[80vh] w-[26vw] bg-white mt-35 rounded-4xl shadow-2xs shadow-purple-800"
 const inputTextStyle = "border border-black w-[95%] h-[5vh] resize-none rounded-2xl"
@@ -7,19 +9,6 @@ const inputTextStyle = "border border-black w-[95%] h-[5vh] resize-none rounded-
 export default function Add({isVisible, onClose}){
     const [addAuthor, setAddAuthor] = useState('');
     const [addBio, setAddBio] = useState('');
-
-    function submitAuthor(){
-        axios
-        .post("http://127.0.0.1:8000/addAuthor", {
-            name: addAuthor,
-            bio: addBio,
-        }).then((res) =>{
-            console.log(res.data + " Author added succesfully")
-        }
-        ).catch((err)=>{
-            console.log(err);
-        })
-    }
 
     return(
         <div className={"grid fixed justify-center w-screen h-screen bg-gray-400/30 " + (isVisible ? "visible" : "invisible")}>
@@ -47,7 +36,7 @@ export default function Add({isVisible, onClose}){
                         onChange={e => setAddBio(e.target.value)}/
                      >
 
-                    <input onClick={()=> submitAuthor()} type='submit' className={inputTextStyle + 
+                    <input onClick={()=> submitAuthor({addAuthor, addBio})} type='submit' className={inputTextStyle + 
                         " bg-purple-800 text-white font-bold text-3xl \
                         mt-11 h-[90px] rounded-[50rem] transition-transform delay-75 \
                         duration-150 ease-in-out hover:cursor-pointer\

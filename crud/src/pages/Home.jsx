@@ -3,38 +3,27 @@ import Navbar from "../components/Navbar"
 import Add from "../components/Add"
 import Update from "../components/Update"
 
-//Functions
-import deleteAuthor from "../components/Delete.js"
+//REST API
+import {loadData, deleteAuthor} from "../api/apiAuthorRequests.js"
 
 // LIBRARIES
 import { useState, useEffect } from "react";
 import React from 'react'
-import axios from "axios";
-
 
 const liStyle = "ml-2 mr-2 text-white bg-gray-700 p-4 pl-6 pr-6 h-fit rounded-4xl transition-all delay-75 duration-150 ease-in-out hover:text-2xl hover:cursor-pointer hover:bg-red-300 hover:p-6 hover:pl-8 hover:pr-8"; 
 const thStyle = "p-3 bg-gray-700"
 
 export default function Home() {  
-    const [authors, setAuthors] = useState()
+    const [authors, setAuthors] = useState([])
     const [isAddVisible, setIsAddVisible] = useState(false)
     const [isUpdateVisible, setIsUpdateVisible] = useState(false)
     const [idToUpdate, setIdToUpdate] = useState(null);
 
-    function loadData(){
-        axios
-        .get("http://127.0.0.1:8000/author")
-        .then((response) =>{
-            setAuthors(response.data)
-            console.log(response.data)
-        })
-        .catch((error) => {
-            console.error("Error fetching tasks:", error);
-        });
-    }
-
     useEffect(() =>{
         loadData()
+        .then((data) =>{
+            setAuthors(data);
+        })
     }, [])
     
     return (
@@ -63,7 +52,12 @@ export default function Home() {
                         </thead>
                         <tbody>
                             {authors?.map((author) =>(
-                                <tr className="w-[69vh] transition-all hover:scale-105 hover:cursor-pointer z-0" key={author.id} onClick={()=> {setIdToUpdate(author.id); setIsUpdateVisible(true);}}>
+                                <tr className="w-[69vh] transition-all hover:scale-105 hover:cursor-pointer z-0"
+                                key={author.id} 
+                                onClick={()=> {
+                                    setIdToUpdate(author.id); 
+                                    setIsUpdateVisible(true);
+                                }}>
                                     <td className={thStyle} id="id" onMouseOver={null}>{author.id}</td>
                                     <td className={thStyle} id="name">{author.name}</td>
                                     <td className={thStyle} id="bio">{author.bio}</td>
@@ -74,6 +68,9 @@ export default function Home() {
                                         deleteAuthor(author.id)
                                         .then(() =>{
                                             loadData()
+                                            .then((data) =>{
+                                                setAuthors(data);
+                                            })
                                         })
                                     }}>DELETE</td>
                                 </tr>

@@ -26,7 +26,7 @@ def updateAuthor(request, pk):
     return Response(serializer.data)
 
 @api_view(['DELETE'])
-def deleteAuthor(pk):
+def deleteAuthor(request, pk):
     author_obj = Author.objects.get(pk=pk)
     author_obj.delete()
     return Response({'msg': 'Person deleted successfully'}, status=status.HTTP_204_NO_CONTENT)

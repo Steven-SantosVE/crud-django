@@ -1,6 +1,9 @@
 import React, {use, useEffect, useState} from "react";
 import axios from "axios";
 
+//REST API
+import {submitUpdateAuthor} from "../api/apiAuthorRequests.js"
+
 const modalStyle = "flex-col h-[80vh] w-[26vw] bg-white mt-35 rounded-4xl shadow-2xs shadow-purple-800"
 const inputTextStyle = "border border-black w-[95%] h-[5vh] resize-none rounded-2xl"
 
@@ -11,19 +14,6 @@ export default function Update({isVisible, onClose, idToUpdate}){
     useEffect(() => {
         
     }, [])
-
-    function submitUpdateAuthor(){
-        axios
-        .put(`http://127.0.0.1:8000/updateAuthor/${idToUpdate}/`, {
-            name: updateAuthor,
-            bio: updateBio,
-        }).then((res) =>{
-            console.log(res.data + " Author added succesfully")
-        }
-        ).catch((err)=>{
-            console.log(err); 
-        })
-    }
 
     return(
         <div className={"grid z-50 fixed justify-center w-screen h-screen bg-gray-400/30 " + (isVisible ? "visible" : "invisible")}>
@@ -51,7 +41,7 @@ export default function Update({isVisible, onClose, idToUpdate}){
                         onChange={e => setUpdateBio(e.target.value)}/
                      >
 
-                    <input onClick={()=> submitUpdateAuthor()} type='submit' className={inputTextStyle + 
+                    <input onClick={()=> submitUpdateAuthor({updateBio, updateAuthor, idToUpdate})} type='submit' className={inputTextStyle + 
                         " bg-purple-800 text-white font-bold text-3xl \
                         mt-11 h-[90px] rounded-[50rem] transition-transform delay-75 \
                         duration-150 ease-in hover:cursor-pointer\
