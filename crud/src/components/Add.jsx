@@ -3,8 +3,8 @@ import React, {useEffect, useState} from "react";
 //REST API
 import {submitAuthor} from "../api/apiAuthorRequests.js"
 
-const modalStyle = "flex-col h-[80vh] w-[26vw] bg-white mt-35 rounded-4xl shadow-2xs shadow-purple-800"
-const inputTextStyle = "border border-black w-[95%] h-[5vh] resize-none rounded-2xl"
+const modalStyle = "flex-col h-[70vh] w-[40vw] bg-white rounded-4xl shadow-2xs shadow-purple-800 mt-10"
+const inputTextStyle = "border border-black w-full h-[30%] resize-none rounded-2xl"
 
 export default function Add({isVisible, onClose}){
     const [addAuthor, setAddAuthor] = useState('');
@@ -18,29 +18,33 @@ export default function Add({isVisible, onClose}){
                     <h1 className="text-4xl m-10 font-bold border-b-2 border-gray-400 pb-5">Add Authors</h1>
                 </div>
                 
-                <form className="flex flex-col ml-10 gap-2">
+                <form className="flex flex-col items-center gap-2  w-full">
                     
-                    <p className="text-2xl">Name</p>
-                    <input 
-                        type='text' 
-                        className={inputTextStyle} 
-                        value={addAuthor}
-                        onChange={e => setAddAuthor(e.target.value)}
-                    /> 
+                    <div className="w-full max-w-md p-5">
+                        <label className="block text-2xl text-left">Name</label>
+                        <input 
+                            type='text' 
+                            className={inputTextStyle} 
+                            value={addAuthor}
+                            onChange={e => setAddAuthor(e.target.value)}
+                        /> 
+                    </div>
 
-                    <p className="text-2xl">Bio</p>
-                    <input 
-                        type='text'
-                        className={inputTextStyle} 
-                        value={addBio}
-                        onChange={e => setAddBio(e.target.value)}/
-                     >
+                    <div className="w-full max-w-md p-5">
+                        <label className="block text-2xl text-left">Bio</label>
+                        <input 
+                            type='text'
+                            className={inputTextStyle} 
+                            value={addBio}
+                            onChange={e => setAddBio(e.target.value)}/
+                        >
+                    </div>
 
-                    <input onClick={()=> submitAuthor({addAuthor, addBio})} type='submit' className={inputTextStyle + 
+                    <input onClick={()=> submitAuthor({addAuthor, addBio})} type='submit' className={
                         " bg-purple-800 text-white font-bold text-3xl \
-                        mt-11 h-[90px] rounded-[50rem] transition-transform delay-75 \
+                        mt-11 h-full p-5 rounded-[50rem] transition-transform delay-75 \
                         duration-150 ease-in-out hover:cursor-pointer\
-                        hover:bg-purple-600"}
+                        hover:bg-purple-600 w-[60%]"}
                     />       
                 </form>
             </div>

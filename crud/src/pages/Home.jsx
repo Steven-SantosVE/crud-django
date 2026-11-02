@@ -38,9 +38,9 @@ export default function Home() {
                         <li className={liStyle} onClick={()=> loadData()}>Refresh</li>
                     </ul>
                 </div>
-                <div className="grid text-white h-[50vh] w-fit p-10 place-content-center  overflow-y-scroll">
-                    <h1 className="text-6xl mb-6 mt-100">My Books</h1>
-                    <table className="w-[69vh] rounded-4xl text-left">
+                <div className="grid text-white h-fit w-fit p-10 place-content-center  overflow-y-scroll scrollbar-none">
+                    <h1 className="text-6xl mb-6">My Books</h1>
+                    <table className="w-fit rounded-4xl text-left">
                         <thead>
                             <tr>
                                 <th className={thStyle}>ID</th>
@@ -52,7 +52,7 @@ export default function Home() {
                         </thead>
                         <tbody>
                             {authors?.map((author) =>(
-                                <tr className="w-[69vh] transition-all hover:scale-105 hover:cursor-pointer z-0"
+                                <tr className="w-fit transition-all hover:scale-105 hover:cursor-pointer hover:text-gray-400 z-0"
                                 key={author.id} 
                                 onClick={()=> {
                                     setIdToUpdate(author.id); 
